@@ -1,14 +1,13 @@
-FROM ghcr.io/linuxserver/wireguard
+FROM debian:bullseye-slim
 
-ENV PUID=1000
-ENV PGID=1000
-ENV TZ=Europe/Moscow
-ENV SERVERURL=auto
-ENV SERVERPORT=51820
-ENV PEERS=1
-ENV PEERDNS=1.1.1.1
-ENV INTERNAL_SUBNET=10.13.13.0
-ENV ALLOWEDIPS=0.0.0.0/0
+RUN apt update && \
+    apt install -y wireguard iproute2 curl qrencode python3 && \
+    mkdir -p /app
 
-VOLUME /config
-EXPOSE 51820/udp
+COPY gen.sh /app/gen.sh
+
+WORKDIR /app
+RUN chmod +x ./gen.sh && ./gen.sh
+
+EXPOSE 8080
+CMD ["python3", "-m", "http.server", "8080"]
