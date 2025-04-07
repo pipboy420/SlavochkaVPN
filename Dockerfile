@@ -7,7 +7,9 @@ RUN apt update && \
 COPY gen.sh /app/gen.sh
 
 WORKDIR /app
+
 RUN chmod +x ./gen.sh && ./gen.sh
 
 EXPOSE 8080
+
 CMD ["python3", "-m", "http.server", "8080"]
