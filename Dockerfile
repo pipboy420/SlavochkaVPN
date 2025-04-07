@@ -1,7 +1,7 @@
 FROM debian:bullseye-slim
 
-RUN apt update && \
-    apt install -y wireguard iproute2 curl qrencode python3 && \
+RUN apt-get update && \
+    apt-get install -y gnupg curl iproute2 qrencode wireguard python3 && \
     mkdir -p /app
 
 COPY gen.sh /app/gen.sh
