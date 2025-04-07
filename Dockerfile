@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 RUN apt-get update && \
-    apt-get install -y curl openssl qrencode python3 && \
+    apt-get install -y wireguard-tools curl openssl qrencode python3 && \
     mkdir -p /app
 
 COPY gen.sh /app/gen.sh
