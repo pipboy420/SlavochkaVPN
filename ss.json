@@ -1,0 +1,9 @@
+{
+    "server": "0.0.0.0",
+    "server_port": 8388,
+    "password": "railvpn123",
+    "timeout": 300,
+    "method": "aes-256-gcm",
+    "plugin": "obfs-server",
+    "plugin_opts": "obfs=http"
+  }

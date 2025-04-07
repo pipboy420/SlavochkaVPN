@@ -1,15 +1,11 @@
-FROM ubuntu:22.04
+FROM debian:bullseye-slim
 
 RUN apt-get update && \
-    apt-get install -y wireguard-tools curl openssl qrencode python3 && \
-    mkdir -p /app
+    apt-get install -y shadowsocks-libev simple-obfs curl && \
+    mkdir -p /etc/shadowsocks
 
-COPY gen.sh /app/gen.sh
+COPY ss.json /etc/shadowsocks/config.json
 
-WORKDIR /app
+EXPOSE 8388
 
-RUN chmod +x ./gen.sh && ./gen.sh
-
-EXPOSE 8080
-
-CMD ["python3", "-m", "http.server", "8080"]
+CMD ss-server -c /etc/shadowsocks/config.json --fast-open --plugin obfs-server --plugin-opts "obfs=http"
